@@ -49,6 +49,11 @@ def importData(file):
 
 
 def getConditionalProbablities(total, hamData, spamData):
+	
+
+	M = total
+
+
 	hamProbablity ={}
 	spamProbablity ={}
 
@@ -62,10 +67,10 @@ def getConditionalProbablities(total, hamData, spamData):
 		totalSpam += spamData.get(word)
 
 	for word in hamData:
-		hamProbablity[word] = float(hamData.get(word) + 1) / (totalHam + total)
+		hamProbablity[word] = float(hamData.get(word) + float(M/total)) / (totalHam + M)
 
 	for word in spamData:
-		spamProbablity[word] = float(spamData.get(word) + 1) / (totalSpam + total)
+		spamProbablity[word] = float(spamData.get(word) + float(M/total)) / (totalSpam + M)
 
 	maxHam = dict(sorted(hamProbablity.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
 	maxSpam = dict(sorted(spamProbablity.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
@@ -125,4 +130,5 @@ if __name__ == '__main__':
 	"""
 	FILENAME = 'nbctrain'
 	TESTNAME = 'nbctest'
+	M = 1
 	main(FILENAME, TESTNAME)
