@@ -83,14 +83,14 @@ def test(TESTNAME, hamProbablity, spamProbablity, totalHam, totalSpam, total):
 		spam = float(0)
 		ham = float(0)
 		current = line.split()
-		for i in range(2, len(current)):
+		for i in range(2, len(current),2):
 			# print hamProbablity.get(current[i], float(1) / (totalHam + total)),
 			# print log1p(hamProbablity.get(current[i], float(1) / (totalHam + total)))
 			# print spamProbablity.get(current[i], float(1) / (totalSpam + total)),
 			# print log1p(spamProbablity.get(current[i], float(1) / (totalSpam + total)))
 
-			ham += log(hamProbablity.get(current[i], float(1) / (totalHam + total)))
-			spam += log(spamProbablity.get(current[i], float(1) / (totalSpam + total)))
+			ham += log(hamProbablity.get(current[i], float(1) / (totalHam + total))) * int(current[i+1])
+			spam += log(spamProbablity.get(current[i], float(1) / (totalSpam + total))) * int(current[i+1])
 			
 		print ham, spam, current[1]
 		
