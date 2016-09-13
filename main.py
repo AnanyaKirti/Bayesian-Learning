@@ -1,7 +1,7 @@
 import operator
 from math import log
 
-
+M = 1 
 def importData(file):
 	"""
 	 This function imports the data into a list form a file name passed as an argument. 
@@ -51,7 +51,6 @@ def importData(file):
 def getConditionalProbablities(total, hamData, spamData):
 	
 
-	M = total
 
 
 	hamProbablity ={}
@@ -94,8 +93,8 @@ def test(TESTNAME, hamProbablity, spamProbablity, totalHam, totalSpam, total):
 			# print spamProbablity.get(current[i], float(1) / (totalSpam + total)),
 			# print log1p(spamProbablity.get(current[i], float(1) / (totalSpam + total)))
 
-			ham += log(hamProbablity.get(current[i], float(1) / (totalHam + total))) * int(current[i+1])
-			spam += log(spamProbablity.get(current[i], float(1) / (totalSpam + total))) * int(current[i+1])
+			ham += log(hamProbablity.get(current[i], (1 + float(M/total)) / (totalHam + M))) * int(current[i+1])
+			spam += log(spamProbablity.get(current[i], (1 + float(M/total)) / (totalSpam + M))) * int(current[i+1])
 			
 		print ham, spam, current[1]
 		
@@ -109,6 +108,7 @@ def test(TESTNAME, hamProbablity, spamProbablity, totalHam, totalSpam, total):
 	f.close()
 
 	accuracy = float(correct) / testtotal * 100
+	print M
 	return accuracy
 
 
@@ -130,5 +130,7 @@ if __name__ == '__main__':
 	"""
 	FILENAME = 'nbctrain'
 	TESTNAME = 'nbctest'
-	M = 1
+
+	M = 996
+
 	main(FILENAME, TESTNAME)
